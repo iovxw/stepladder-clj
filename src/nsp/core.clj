@@ -33,7 +33,7 @@
     (.close output-stream)
     (.close socket)))
 
-(defn dail-tcp [host port]
+(defn dial-tcp [host port]
   (let [socket (Socket. host port)]
     (TCPConn. socket (.getInputStream socket) (.getOutputStream socket))))
 
@@ -95,8 +95,8 @@
 
 (def ^:private sha256 (MessageDigest/getInstance "SHA-256"))
 
-(defn dail-nsp [host port key]
-  (let [conn (dail-tcp host port)]
+(defn dial-nsp [host port key]
+  (let [conn (dial-tcp host port)]
     ; 握手
     (let [[private-key public-key] (ecdh/keygen)]
       (write conn (append-byte-array
